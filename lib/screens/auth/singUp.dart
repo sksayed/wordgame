@@ -21,9 +21,11 @@ class _SignUpState extends State<SignUp> {
   String username = "";
   String email = "";
   String password = "";
+  String status = "Ortaokul";
 
   String error = "";
   bool loading = false;
+  double sliderVal = 15;
   @override
   Widget build(BuildContext context) {
     return loading
@@ -45,8 +47,8 @@ class _SignUpState extends State<SignUp> {
       child: Center(
         child: Column(
           children: [
-            fieldsAndButton(),
-            SizedBox(height: 100),
+            fieldsAndButton(context),
+            SizedBox(height: 50),
             signIn(),
           ],
         ),
@@ -54,17 +56,17 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Container fieldsAndButton() {
+  Container fieldsAndButton(BuildContext context) {
     return Container(
       child: Form(
         key: _formKey,
         child: Column(
           children: [
+            nameAndSurname(),
             SizedBox(height: 12),
             CustomTextField(
               obscure: false,
               label: 'Kullanıcı adın',
-              fillColor: Colors.red[200],
               validation: (val) => val.length < 2
                   ? "Kullanıcı adınız en az 2 karakter içermelidir!"
                   : null,
@@ -75,10 +77,14 @@ class _SignUpState extends State<SignUp> {
               },
             ),
             SizedBox(height: 12),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: datePicker(context),
+            ),
+            SizedBox(height: 12),
             CustomTextField(
               obscure: false,
               label: 'E-posta',
-              fillColor: Colors.red[200],
               validation: (val) =>
                   val.isEmpty ? "Lütfen E-postanızı girin!" : null,
               onChange: (val) {
@@ -91,7 +97,6 @@ class _SignUpState extends State<SignUp> {
             CustomTextField(
               obscure: true,
               label: 'Şifre',
-              fillColor: Colors.red[200],
               validation: (val) => val.length < 6
                   ? "Şifreniz en az 6 karakter içermelidir!"
                   : null,
@@ -101,6 +106,8 @@ class _SignUpState extends State<SignUp> {
                 });
               },
             ),
+            SizedBox(height: 12),
+            educationStatusSlider(),
             SizedBox(height: 12),
             AuthButton(
               title: "Hesap Oluştur",
@@ -126,9 +133,124 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  datePicker(BuildContext context) {
+    DateTime _dateTime;
+    return GestureDetector(
+      onTap: () {
+        showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1970),
+          lastDate: DateTime(2020),
+        ).then(
+          (date) {
+            setState(() {
+              _dateTime = date;
+            });
+          },
+        );
+      },
+      child: Container(
+        height: 55,
+        width: 156,
+        decoration: BoxDecoration(
+          color: Color(0xffEE9090),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            _dateTime == null ? 'Doğum Tarihini Seç' : _dateTime.toString(),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container educationStatusSlider() {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Eğitim Durumunuz Nedir?',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Daireyi Sürükleyiniz!',
+              style: TextStyle(color: Colors.black45),
+            ),
+          ),
+          SizedBox(height: 15),
+          Slider(
+            activeColor: Color(0xffBA3E48),
+            inactiveColor: Color(0xffEE9090),
+            value: sliderVal,
+            divisions: 2,
+            min: 0,
+            max: 30,
+            onChanged: (val) {
+              setState(() {
+                return sliderVal = val;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row nameAndSurname() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: CustomTextField(
+            obscure: false,
+            label: 'Adın',
+            validation: (val) =>
+                val.length < 2 ? "adınız en az 2 karakter içermelidir!" : null,
+            onChange: (val) {
+              setState(() {
+                return username = val;
+              });
+            },
+          ),
+        ),
+        SizedBox(width: 15),
+        Expanded(
+          flex: 2,
+          child: CustomTextField(
+            obscure: false,
+            label: 'Soyadın',
+            validation: (val) => val.length < 2
+                ? "Soyadınız en az 2 karakter içermelidir!"
+                : null,
+            onChange: (val) {
+              setState(() {
+                return username = val;
+              });
+            },
+          ),
+        )
+      ],
+    );
+  }
+
   Container signIn() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      alignment: Alignment.centerRight,
       child: GestureDetector(
         onTap: () {
           widget.toggleView();

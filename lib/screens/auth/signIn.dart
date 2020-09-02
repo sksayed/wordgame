@@ -24,15 +24,17 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
-      appBar: CustomAppBar(
-        title1: 'Hoşgeldiniz',
-        title: 'Öğrenmeye Başlamak İçin Giriş Yapın',
-      ),
-      body:  _buildBody(),
-    );
+    return loading
+        ? Loading()
+        : Scaffold(
+            backgroundColor: Colors.white,
+            resizeToAvoidBottomPadding: false,
+            appBar: CustomAppBar(
+              title1: 'Hoşgeldiniz',
+              title: 'Öğrenmeye Başlamak İçin Giriş Yapın',
+            ),
+            body: _buildBody(),
+          );
   }
 
   _buildBody() {
@@ -82,12 +84,11 @@ class _SignInState extends State<SignIn> {
     return Container(
       child: Form(
         key: _formKey,
-              child: Column(
+        child: Column(
           children: [
             CustomTextField(
               obscure: false,
               label: 'E-posta',
-              fillColor: Colors.red[200],
               validation: (val) =>
                   val.isEmpty ? "Lütfen e-postanızı girin!" : null,
               onChange: (val) {
@@ -100,8 +101,8 @@ class _SignInState extends State<SignIn> {
             CustomTextField(
               obscure: true,
               label: 'Şifre',
-              fillColor: Colors.red[200],
-              validation: (val) => val.isEmpty ? "Lütfen şifrenizi girin!" : null,
+              validation: (val) =>
+                  val.isEmpty ? "Lütfen şifrenizi girin!" : null,
               onChange: (val) {
                 setState(() {
                   return password = val;

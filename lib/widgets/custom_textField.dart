@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
-  final Color fillColor;
   final bool obscure;
   final Function(String) validation;
   final Function(String) onChange;
@@ -10,7 +9,6 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField({
     this.label,
-    this.fillColor,
     this.obscure,
     this.validation,
     this.onChange,
@@ -19,16 +17,15 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
       controller: controller,
       validator: validation,
       onChanged: onChange,
       obscureText: obscure,
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         labelText: label,
         fillColor: Color(0xffEE9090),
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
         filled: true,
         enabledBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.circular(10),
