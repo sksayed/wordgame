@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ingilizceegitim/services/auth_services.dart';
 import 'package:ingilizceegitim/widgets/custom_appbar.dart';
+import 'package:ingilizceegitim/widgets/lesson_card.dart';
 import 'package:ingilizceegitim/widgets/settings_drawer.dart';
 
 class Home extends StatefulWidget {
@@ -20,57 +21,163 @@ class _HomeState extends State<Home> {
         onPress: () => _scaffoldKey.currentState.openEndDrawer(),
       ),
       body: buildBody(),
-      endDrawer: SettingsDrawer(
-        logoutButton: () {
-          Navigator.of(context).pop();
-          buildShowDialog(context);
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            title: Text(
-              'Ana Ekran',
-              style: TextStyle(
-                color: Color(0xffBA3E48),
-              ),
-            ),
-            icon: Icon(Icons.home),
-            activeIcon: Icon(
-              Icons.home,
-              size: 30,
-              color: Color(0xffBA3E48),
-            ),
-          ),
-          BottomNavigationBarItem(
-            title: Text(''),
-            icon: Icon(Icons.assessment,size: 28),
-            activeIcon: Icon(
-              Icons.assessment,
-              size: 30,
-              color: Color(0xffBA3E48),
-            ),
-          ),
-          BottomNavigationBarItem(
-            title: Text(''),
-            
-            icon: Icon(Icons.settings,size: 28),
-            activeIcon: Icon(
-              Icons.settings,
-              size: 30,
-              color: Color(0xffBA3E48),
-            ),
-          ),
-        ],
-      ),
+      endDrawer: buildSettingsDrawer(context),
+      bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
   buildBody() {
-    return Center(
-      child: Column(
-        children: [],
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {},
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Ders Ara",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.mic,
+                        color: Color(0xffBA3E48),
+                      ),
+                      onPressed: (){},
+                    )
+                  ],
+                ),
+              ),
+            ),
+            lessons(),
+          ],
+        ),
       ),
+    );
+  }
+
+  Column lessons() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Dersler',
+                style: TextStyle(fontSize: 18),
+              ),
+              IconButton(
+                icon: Icon(Icons.more_horiz),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LessonCard(
+              color: Color(0xff1FBB8B),
+            ),
+            SizedBox(width: 20),
+            LessonCard(
+              color: Color(0xff165567),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LessonCard(
+              color: Color(0xffC17F3E),
+            ),
+            SizedBox(width: 20),
+            LessonCard(
+              color: Color(0xffCFC060),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LessonCard(
+              color: Color(0xff1FBB8B),
+            ),
+            SizedBox(width: 20),
+            LessonCard(
+              color: Color(0xff165567),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  SettingsDrawer buildSettingsDrawer(BuildContext context) {
+    return SettingsDrawer(
+      logoutButton: () {
+        Navigator.of(context).pop();
+        buildShowDialog(context);
+      },
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+          title: Text(
+            'Ana Ekran',
+            style: TextStyle(
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          icon: Icon(Icons.home),
+          activeIcon: Icon(
+            Icons.home,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+        BottomNavigationBarItem(
+          title: Text(''),
+          icon: Icon(Icons.assessment, size: 28),
+          activeIcon: Icon(
+            Icons.assessment,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+        BottomNavigationBarItem(
+          title: Text(''),
+          icon: Icon(Icons.settings, size: 28),
+          activeIcon: Icon(
+            Icons.settings,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+      ],
     );
   }
 
