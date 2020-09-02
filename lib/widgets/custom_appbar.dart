@@ -65,9 +65,11 @@ class CustomAppBarForHome extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final String title1;
+  final Function onPress;
   CustomAppBarForHome({
     this.title,
     this.title1,
+    this.onPress,
   });
   @override
   Size get preferredSize => Size.fromHeight(120);
@@ -99,8 +101,12 @@ class CustomAppBarForHome extends StatelessWidget
                 ),
               ),
             ),
-            CircleAvatar(
-              backgroundColor: Colors.white,
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              onPressed: onPress,
             )
           ],
         ),
