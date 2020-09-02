@@ -32,40 +32,44 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {},
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Ders Ara",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.mic,
-                        color: Color(0xffBA3E48),
-                      ),
-                      onPressed: (){},
-                    )
-                  ],
+            searchField(),
+            lessons(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding searchField() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+            Expanded(
+              flex: 1,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Ders Ara",
+                  border: InputBorder.none,
                 ),
               ),
             ),
-            lessons(),
+            IconButton(
+              icon: Icon(
+                Icons.mic,
+                color: Color(0xffBA3E48),
+              ),
+              onPressed: () {},
+            )
           ],
         ),
       ),
@@ -160,16 +164,16 @@ class _HomeState extends State<Home> {
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(''),
-          icon: Icon(Icons.assessment, size: 28),
+          title: Text('Liderlik Tablosu'),
+          icon: Icon(Icons.equalizer, size: 28),
           activeIcon: Icon(
-            Icons.assessment,
+            Icons.equalizer,
             size: 30,
             color: Color(0xffBA3E48),
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(''),
+          title: Text('Ayarlar'),
           icon: Icon(Icons.settings, size: 28),
           activeIcon: Icon(
             Icons.settings,
