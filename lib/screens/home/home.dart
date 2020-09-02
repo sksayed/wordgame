@@ -20,7 +20,39 @@ class _HomeState extends State<Home> {
         onPress: () => _scaffoldKey.currentState.openEndDrawer(),
       ),
       body: buildBody(),
-      endDrawer: SettingsDrawer(),
+      endDrawer: SettingsDrawer(
+        logoutButton: () {
+          Navigator.of(context).pop();
+          buildShowDialog(context);
+        },
+      ),
+    );
+  }
+
+  Future buildShowDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Çıkış Yap"),
+        content: new Text("Çıkış yapmak istediğine emin misin?"),
+        actions: <Widget>[
+          RaisedButton(
+            color: Colors.green,
+            child: Text('Hayır'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          RaisedButton(
+            color: Colors.red,
+            child: Text('Evet'),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
     );
   }
 

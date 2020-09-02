@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SettingsDrawer extends StatefulWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final Function logoutButton;
+  SettingsDrawer({this.logoutButton});
   @override
   SettingsDrawerState createState() => SettingsDrawerState();
 }
 
 class SettingsDrawerState extends State<SettingsDrawer> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Function logoutButton;
+  SettingsDrawerState({this.logoutButton});
   bool isSwitched = false;
   bool isSwitched1 = true;
   bool isSwitched2 = true;
@@ -41,93 +42,111 @@ class SettingsDrawerState extends State<SettingsDrawer> {
           buildDivider(),
           SizedBox(height: 15),
           moreSwitcherSettings(),
-          SizedBox(height: 15),
-          
+          SizedBox(height: 20),
+          signOutButton()
         ],
+      ),
+    );
+  }
+
+  Widget signOutButton() {
+    return GestureDetector(
+      onTap: () {
+        widget.logoutButton();
+      },
+      child: Container(
+        alignment: Alignment.centerRight,
+        child: Text(
+          'Çıkış Yap',
+          style: TextStyle(
+              color: Color(0xffBA3E48),
+              decoration: TextDecoration.underline,
+              fontSize: 15),
+        ),
       ),
     );
   }
 
   Container moreSwitcherSettings() {
     return Container(
-          child: Column(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Ses Efektleri',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                  Switch(
-                    value: isSwitched1,
-                    onChanged: (value) {
-                      setState(() {
-                        if (isSwitched1 == true) {
-                          return isSwitched1 = false;
-                        } else {
-                          return isSwitched1 = true;
-                        }
-                      });
-                    },
-                    activeTrackColor: Color(0xffBA3E48),
-                    activeColor: Colors.white,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Cevaptan Sonra Sesi Çal',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                  Switch(
-                    value: isSwitched1,
-                    onChanged: (value) {
-                      setState(() {
-                        if (isSwitched1 == true) {
-                          return isSwitched1 = false;
-                        } else {
-                          return isSwitched1 = true;
-                        }
-                      });
-                    },
-                    activeTrackColor: Color(0xffBA3E48),
-                    activeColor: Colors.white,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Hemen Devam Et',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                  Switch(
-                    value: isSwitched1,
-                    onChanged: (value) {
-                      setState(() {
-                        if (isSwitched1 == true) {
-                          return isSwitched1 = false;
-                        } else {
-                          return isSwitched1 = true;
-                        }
-                      });
-                    },
-                    activeTrackColor: Color(0xffBA3E48),
-                    activeColor: Colors.white,
-                  ),
-                ],
-              ),
               Text(
-                'Verilen Cevap Eğer Doğruysa Beklemeden Devam Et',
-                style: TextStyle(color: Colors.black38, fontSize: 13),
-              )
+                'Ses Efektleri',
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
+              Switch(
+                value: isSwitched1,
+                onChanged: (value) {
+                  setState(() {
+                    if (isSwitched1 == true) {
+                      return isSwitched1 = false;
+                    } else {
+                      return isSwitched1 = true;
+                    }
+                  });
+                },
+                activeTrackColor: Color(0xffBA3E48),
+                activeColor: Colors.white,
+              ),
             ],
           ),
-        );
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Cevaptan Sonra Sesi Çal',
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
+              Switch(
+                value: isSwitched2,
+                onChanged: (value) {
+                  setState(() {
+                    if (isSwitched2 == true) {
+                      return isSwitched2 = false;
+                    } else {
+                      return isSwitched2 = true;
+                    }
+                  });
+                },
+                activeTrackColor: Color(0xffBA3E48),
+                activeColor: Colors.white,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Hemen Devam Et',
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
+              Switch(
+                value: isSwitched3,
+                onChanged: (value) {
+                  setState(() {
+                    if (isSwitched3 == true) {
+                      return isSwitched3 = false;
+                    } else {
+                      return isSwitched3 = true;
+                    }
+                  });
+                },
+                activeTrackColor: Color(0xffBA3E48),
+                activeColor: Colors.white,
+              ),
+            ],
+          ),
+          Text(
+            'Verilen Cevap Eğer Doğruysa Beklemeden Devam Et',
+            style: TextStyle(color: Colors.black38, fontSize: 13),
+          )
+        ],
+      ),
+    );
   }
 
   Container noficationsSwitcher() {
@@ -237,7 +256,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             ],
           ),
         ),
-         SizedBox(height: 15),
+        SizedBox(height: 15),
       ],
     );
   }
