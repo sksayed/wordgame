@@ -26,6 +26,51 @@ class _HomeState extends State<Home> {
           buildShowDialog(context);
         },
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            title: Text(
+              'Ana Ekran',
+              style: TextStyle(
+                color: Color(0xffBA3E48),
+              ),
+            ),
+            icon: Icon(Icons.home),
+            activeIcon: Icon(
+              Icons.home,
+              size: 30,
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: Text(''),
+            icon: Icon(Icons.assessment,size: 28),
+            activeIcon: Icon(
+              Icons.assessment,
+              size: 30,
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: Text(''),
+            
+            icon: Icon(Icons.settings,size: 28),
+            activeIcon: Icon(
+              Icons.settings,
+              size: 30,
+              color: Color(0xffBA3E48),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildBody() {
+    return Center(
+      child: Column(
+        children: [],
+      ),
     );
   }
 
@@ -37,14 +82,14 @@ class _HomeState extends State<Home> {
         content: new Text("Çıkış yapmak istediğine emin misin?"),
         actions: <Widget>[
           RaisedButton(
-            color: Colors.green,
+            color: Color(0xffEE9090),
             child: Text('Hayır'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           RaisedButton(
-            color: Colors.red,
+            color: Color(0xffBA3E48),
             child: Text('Evet'),
             onPressed: () async {
               await _auth.signOut();
@@ -52,14 +97,6 @@ class _HomeState extends State<Home> {
             },
           )
         ],
-      ),
-    );
-  }
-
-  buildBody() {
-    return Center(
-      child: Column(
-        children: [],
       ),
     );
   }
