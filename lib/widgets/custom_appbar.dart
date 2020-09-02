@@ -60,3 +60,51 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
+class CustomAppBarForHome extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+  final String title1;
+  CustomAppBarForHome({
+    this.title,
+    this.title1,
+  });
+  @override
+  Size get preferredSize => Size.fromHeight(120);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(50),
+          bottomRight: Radius.circular(50),
+        ),
+        color: Color(0xffBA3E48),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                title1,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            CircleAvatar(
+              backgroundColor: Colors.white,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

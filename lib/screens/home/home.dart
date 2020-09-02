@@ -12,9 +12,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBarForHome(
         title1: 'Ana Sayfa',
-        title: "",
       ),
       body: Center(
         child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ingilizceegitim/services/auth_services.dart';
+import 'package:ingilizceegitim/services/db_service.dart';
 import 'package:ingilizceegitim/widgets/auth_button.dart';
 import 'package:ingilizceegitim/widgets/custom_appbar.dart';
 import 'package:ingilizceegitim/widgets/custom_textField.dart';
@@ -15,6 +16,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final DbService _db = DbService();
 
   String name = "";
   String surname = "";
@@ -113,11 +115,19 @@ class _SignUpState extends State<SignUp> {
               title: "Hesap Oluştur",
               onPress: () async {
                 if (_formKey.currentState.validate()) {
+                  Map<String, String> userInfoMap = {
+                    "email": email,
+                    "password": password,
+                    "name": name,
+                    "surname": surname,
+                    "username": username,
+                  };
                   setState(() => loading = true);
                   dynamic result = await _auth.signUpWithEmailAndPassword(
                     email,
                     password,
                   );
+                  _db.uploadUserInfo(userInfoMap);
                   if (result == null) {
                     setState(() {
                       loading = false;
@@ -223,7 +233,7 @@ class _SignUpState extends State<SignUp> {
                 val.length < 2 ? "adınız en az 2 karakter içermelidir!" : null,
             onChange: (val) {
               setState(() {
-                return username = val;
+                return name = val;
               });
             },
           ),
@@ -239,7 +249,7 @@ class _SignUpState extends State<SignUp> {
                 : null,
             onChange: (val) {
               setState(() {
-                return username = val;
+                return surname = val;
               });
             },
           ),

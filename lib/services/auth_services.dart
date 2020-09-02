@@ -12,7 +12,6 @@ class AuthService {
     return _auth.onAuthStateChanged.map(_firebaseUser);
   }
 
-  //Kayıt olma işlemi
   Future signUpWithEmailAndPassword(String email, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
@@ -27,7 +26,6 @@ class AuthService {
     }
   }
 
-  //giriş yapma işlemi
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -42,7 +40,6 @@ class AuthService {
     }
   }
 
-  //Şifre sıfırlama işlemi
   Future resetPassword(String email) async {
     try {
       return await _auth.sendPasswordResetEmail(email: email);
@@ -52,7 +49,6 @@ class AuthService {
     }
   }
 
-  //Çıkış yapma işlemi
    Future signOut() async {
     try {
       return await _auth.signOut();
