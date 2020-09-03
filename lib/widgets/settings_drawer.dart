@@ -19,7 +19,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.only(
-          top: 80,
+          top: 60,
           left: 20,
           right: 10,
         ),
@@ -32,9 +32,9 @@ class SettingsDrawerState extends State<SettingsDrawer> {
               fontWeight: FontWeight.w700,
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 30),
           buildFirstSettings(),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           buildDivider(),
           SizedBox(height: 5),
           noficationsSwitcher(),
@@ -42,7 +42,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
           buildDivider(),
           SizedBox(height: 15),
           moreSwitcherSettings(),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           signOutButton()
         ],
       ),
