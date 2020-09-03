@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,45 +147,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  BottomNavigationBar buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-          title: Text(
-            'Ana Ekran',
-            style: TextStyle(
-              color: Color(0xffBA3E48),
-            ),
-          ),
-          icon: Icon(Icons.home),
-          activeIcon: Icon(
-            Icons.home,
-            size: 30,
-            color: Color(0xffBA3E48),
-          ),
-        ),
-        BottomNavigationBarItem(
-          title: Text('Liderlik Tablosu'),
-          icon: Icon(Icons.equalizer, size: 28),
-          activeIcon: Icon(
-            Icons.equalizer,
-            size: 30,
-            color: Color(0xffBA3E48),
-          ),
-        ),
-        BottomNavigationBarItem(
-          title: Text('Ayarlar'),
-          icon: Icon(Icons.settings, size: 28),
-          activeIcon: Icon(
-            Icons.settings,
-            size: 30,
-            color: Color(0xffBA3E48),
-          ),
-        ),
-      ],
-    );
-  }
-
   Future buildShowDialog(BuildContext context) {
     return showDialog(
       context: context,
@@ -209,6 +171,61 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      currentIndex: _currentIndex,
+      items: [
+        BottomNavigationBarItem(
+          title: Text(
+            'Ana Ekran',
+            style: TextStyle(
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          icon: Icon(Icons.home),
+          activeIcon: Icon(
+            Icons.home,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+        BottomNavigationBarItem(
+          title: Text(
+            'Liderlik Tablosu',
+            style: TextStyle(
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          icon: Icon(Icons.equalizer, size: 28),
+          activeIcon: Icon(
+            Icons.equalizer,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+        BottomNavigationBarItem(
+          title: Text(
+            'Ayarlar',
+            style: TextStyle(
+              color: Color(0xffBA3E48),
+            ),
+          ),
+          icon: Icon(Icons.settings, size: 28),
+          activeIcon: Icon(
+            Icons.settings,
+            size: 30,
+            color: Color(0xffBA3E48),
+          ),
+        ),
+      ],
     );
   }
 }
