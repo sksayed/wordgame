@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingilizceegitim/responsive/responsive_widget.dart';
 import 'package:ingilizceegitim/services/auth_services.dart';
 import 'package:ingilizceegitim/widgets/custom_appbar.dart';
 import 'package:ingilizceegitim/widgets/lesson_card.dart';
@@ -14,14 +15,21 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: CustomAppBarForHome(
+    return buildResponsiveWidget(context);
+  }
+
+  ResponsiveWidget buildResponsiveWidget(BuildContext context) {
+    return ResponsiveWidget(
+      scaffoldKey: _scaffoldKey,
+      backgroundColor: Colors.white,
+      drawer: buildSettingsDrawer(context),
+      appbar: CustomAppBarForHome(
         title1: 'Ana Sayfa',
         onPress: () => _scaffoldKey.currentState.openEndDrawer(),
       ),
-      endDrawer: buildSettingsDrawer(context),
-      body: buildBody(),
+      builder: (context, constrains) {
+        return buildBody();
+      },
     );
   }
 
@@ -145,8 +153,6 @@ class _HomeState extends State<Home> {
       ],
     );
   }
-
- 
 
   Future buildShowDialog(BuildContext context) {
     return showDialog(

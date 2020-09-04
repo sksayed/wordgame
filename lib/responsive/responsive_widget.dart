@@ -3,8 +3,9 @@ import 'package:ingilizceegitim/responsive/size_information.dart';
 
 class ResponsiveWidget extends StatelessWidget {
   final Widget appbar;
-  final Drawer drawer;
+  final Widget drawer;
   final Color backgroundColor;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final Widget Function(BuildContext context, SizeInformation constraints)
       builder;
 
@@ -13,6 +14,7 @@ class ResponsiveWidget extends StatelessWidget {
     this.appbar,
     this.drawer,
     this.backgroundColor,
+    this.scaffoldKey,
   });
 
   @override
@@ -20,6 +22,7 @@ class ResponsiveWidget extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var orientation = MediaQuery.of(context).orientation;
+
 
     SizeInformation sizeInformation = SizeInformation(
       width: width,
@@ -29,12 +32,17 @@ class ResponsiveWidget extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         backgroundColor: backgroundColor,
         resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         appBar: appbar,
         endDrawer: drawer,
-        body: builder(context, sizeInformation),
+        body: Builder(
+          builder: (context) {
+            return builder(context, sizeInformation);
+          },
+        ),
       ),
     );
   }
