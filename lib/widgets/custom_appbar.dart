@@ -191,9 +191,8 @@ class CustomAppBarForRankingScreen extends StatelessWidget
                                 child: Text(
                                   score1,
                                   style: TextStyle(
-                                    color: Color(0xffBA3E48),
-                                    fontWeight: FontWeight.w700
-                                  ),
+                                      color: Color(0xffBA3E48),
+                                      fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ),
@@ -209,9 +208,8 @@ class CustomAppBarForRankingScreen extends StatelessWidget
                                 child: Text(
                                   score2,
                                   style: TextStyle(
-                                    color: Color(0xffBA3E48),
-                                    fontWeight: FontWeight.w700
-                                  ),
+                                      color: Color(0xffBA3E48),
+                                      fontWeight: FontWeight.w700),
                                 ),
                               ),
                             )
@@ -225,6 +223,48 @@ class CustomAppBarForRankingScreen extends StatelessWidget
             ),
             SizedBox(height: 20),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomAppBarForSettings extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+  final String title1;
+  final Function onPress;
+  CustomAppBarForSettings({
+    this.title,
+    this.title1,
+    this.onPress,
+  });
+  @override
+  Size get preferredSize => Size.fromHeight(120);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(50),
+          bottomRight: Radius.circular(50),
+        ),
+        color: Color(0xffBA3E48),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title1,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 35,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ),
     );
