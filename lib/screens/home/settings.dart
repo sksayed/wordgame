@@ -20,6 +20,11 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  bool isSwitched = false;
+  bool isSwitched1 = true;
+  bool isSwitched2 = true;
+  bool isSwitched3 = true;
+
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -119,13 +124,13 @@ class _SettingState extends State<Setting> {
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
-                value: widget.isSwitched1,
+                value: isSwitched1,
                 onChanged: (value) {
                   setState(() {
-                    if (widget.isSwitched1 == true) {
-                      return widget.isSwitched1 = false;
+                    if (isSwitched1 == true) {
+                      return isSwitched1 = false;
                     } else {
-                      return widget.isSwitched1 = true;
+                      return isSwitched1 = true;
                     }
                   });
                 },
@@ -142,13 +147,13 @@ class _SettingState extends State<Setting> {
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
-                value: widget.isSwitched2,
+                value: isSwitched2,
                 onChanged: (value) {
                   setState(() {
-                    if (widget.isSwitched2 == true) {
-                      return widget.isSwitched2 = false;
+                    if (isSwitched2 == true) {
+                      return isSwitched2 = false;
                     } else {
-                      return widget.isSwitched2 = true;
+                      return isSwitched2 = true;
                     }
                   });
                 },
@@ -165,13 +170,13 @@ class _SettingState extends State<Setting> {
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
-                value: widget.isSwitched3,
+                value: isSwitched3,
                 onChanged: (value) {
                   setState(() {
-                    if (widget.isSwitched3 == true) {
-                      return widget.isSwitched3 = false;
+                    if (isSwitched3 == true) {
+                      return isSwitched3 = false;
                     } else {
-                      return widget.isSwitched3 = true;
+                      return isSwitched3 = true;
                     }
                   });
                 },
@@ -202,13 +207,13 @@ class _SettingState extends State<Setting> {
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
           Switch(
-            value: widget.isSwitched,
+            value: isSwitched,
             onChanged: (value) {
               setState(() {
-                if (widget.isSwitched == false) {
-                  return widget.isSwitched = true;
+                if (isSwitched == false) {
+                  return isSwitched = true;
                 } else {
-                  return widget.isSwitched = false;
+                  return isSwitched = false;
                 }
               });
             },
