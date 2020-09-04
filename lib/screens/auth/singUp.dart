@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingilizceegitim/responsive/responsive_widget.dart';
 import 'package:ingilizceegitim/services/auth_services.dart';
 import 'package:ingilizceegitim/services/db_service.dart';
 import 'package:ingilizceegitim/widgets/auth_button.dart';
@@ -30,31 +31,30 @@ class _SignUpState extends State<SignUp> {
   double sliderVal = 15;
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? Loading()
-        : Scaffold(
-            backgroundColor: Colors.white,
-            resizeToAvoidBottomPadding: false,
-            appBar: CustomAppBar(
-              title1: 'Hoşgeldiniz',
-              title: 'Öğrenmeye Başlamak İçin Hesap Oluşturun',
-            ),
-            body: _buildBody(),
-          );
+    return loading ? Loading() : buildBodyWResponsiveWidget();
   }
 
-  _buildBody() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(30.0),
-      child: Center(
-        child: Column(
-          children: [
-            fieldsAndButton(context),
-            SizedBox(height: 50),
-            signIn(),
-          ],
-        ),
+  ResponsiveWidget buildBodyWResponsiveWidget() {
+    return ResponsiveWidget(
+      backgroundColor: Colors.white,
+      appbar: CustomAppBar(
+        title1: 'Hoşgeldiniz',
+        title: 'Öğrenmeye Başlamak İçin Hesap Oluşturun',
       ),
+      builder: (context, constrains) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(30.0),
+          child: Center(
+            child: Column(
+              children: [
+                fieldsAndButton(context),
+                SizedBox(height: 50),
+                signIn(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
