@@ -1,4 +1,4 @@
 
 # İngilizce Eğitim Uygulaması 
  
-Son gelişme: Ekranları responsive yaptım + Ayarlar Ekranını
+Son gelişme: Responsive ekranlar + Ayarlar Ekranını + Liderlik tablosu ekranı
