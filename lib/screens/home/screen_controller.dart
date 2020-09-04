@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingilizceegitim/responsive/responsive_widget.dart';
 import 'package:ingilizceegitim/screens/home/home.dart';
 import 'package:ingilizceegitim/screens/home/ranking.dart';
 import 'package:ingilizceegitim/screens/home/settings.dart';
@@ -13,17 +14,23 @@ class _ScreenControllerState extends State<ScreenController> {
   var pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        children: screens,
-        controller: pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+    return ResponsiveWidget(
       bottomNavigationBar: buildBottomNavigationBar(),
+      builder: (context, constrains) {
+        return buildPageView();
+      },
+    );
+  }
+
+  PageView buildPageView() {
+    return PageView(
+      children: screens,
+      controller: pageController,
+      onPageChanged: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
     );
   }
 

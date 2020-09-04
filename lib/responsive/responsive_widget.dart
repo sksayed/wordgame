@@ -4,6 +4,7 @@ import 'package:ingilizceegitim/responsive/size_information.dart';
 class ResponsiveWidget extends StatelessWidget {
   final Widget appbar;
   final Widget drawer;
+  final Widget bottomNavigationBar;
   final Color backgroundColor;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Widget Function(BuildContext context, SizeInformation constraints)
@@ -15,6 +16,7 @@ class ResponsiveWidget extends StatelessWidget {
     this.drawer,
     this.backgroundColor,
     this.scaffoldKey,
+    this.bottomNavigationBar,
   });
 
   @override
@@ -22,7 +24,6 @@ class ResponsiveWidget extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var orientation = MediaQuery.of(context).orientation;
-
 
     SizeInformation sizeInformation = SizeInformation(
       width: width,
@@ -38,6 +39,7 @@ class ResponsiveWidget extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: appbar,
         endDrawer: drawer,
+        bottomNavigationBar: bottomNavigationBar,
         body: Builder(
           builder: (context) {
             return builder(context, sizeInformation);

@@ -26,7 +26,7 @@ class RankingScreen extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 20),
-        gunlukHaftalikAylik(),
+        gunlukHaftalikAylik(), 
         SizedBox(height: 20),
       ],
     );
