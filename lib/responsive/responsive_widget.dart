@@ -4,6 +4,7 @@ import 'package:ingilizceegitim/responsive/size_information.dart';
 class ResponsiveWidget extends StatelessWidget {
   final Widget appbar;
   final Drawer drawer;
+  final Color backgroundColor;
   final Widget Function(BuildContext context, SizeInformation constraints)
       builder;
 
@@ -11,6 +12,7 @@ class ResponsiveWidget extends StatelessWidget {
     @required this.builder,
     this.appbar,
     this.drawer,
+    this.backgroundColor,
   });
 
   @override
@@ -27,6 +29,8 @@ class ResponsiveWidget extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: backgroundColor,
+        resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         appBar: appbar,
         endDrawer: drawer,

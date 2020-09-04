@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingilizceegitim/responsive/responsive_widget.dart';
 import 'package:ingilizceegitim/services/auth_services.dart';
 import 'package:ingilizceegitim/widgets/auth_button.dart';
 import 'package:ingilizceegitim/widgets/custom_appbar.dart';
@@ -26,30 +27,31 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return loading
         ? Loading()
-        : Scaffold(
-            backgroundColor: Colors.white,
-            resizeToAvoidBottomPadding: false,
-            appBar: CustomAppBar(
-              title1: 'Hoşgeldiniz',
-              title: 'Öğrenmeye Başlamak İçin Giriş Yapın',
-            ),
-            body: _buildBody(),
-          );
+        : buildBodyWResponsiveWidget();
   }
 
-  _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            fieldsAndButton(),
-            signUpAndForgotPassword(),
-          ],
-        ),
-      ),
-    );
+  ResponsiveWidget buildBodyWResponsiveWidget() {
+    return ResponsiveWidget(
+          backgroundColor: Colors.white,
+          appbar: CustomAppBar(
+            title1: 'Hoşgeldiniz',
+            title: 'Öğrenmeye Başlamak İçin Giriş Yapın',
+          ),
+          builder: (context, constrains) {
+            return Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    fieldsAndButton(),
+                    signUpAndForgotPassword(),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
   }
 
   Container signUpAndForgotPassword() {
