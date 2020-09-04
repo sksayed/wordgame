@@ -39,7 +39,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
           SizedBox(height: 5),
           noficationsSwitcher(),
           SizedBox(height: 5),
-          buildDivider(),
+          buildDivider(), 
           SizedBox(height: 15),
           moreSwitcherSettings(),
           SizedBox(height: 10),
