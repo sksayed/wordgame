@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingilizceegitim/responsive/responsive_widget.dart';
 import 'package:ingilizceegitim/widgets/custom_appbar.dart';
 
 class RankingScreen extends StatelessWidget {
@@ -13,9 +14,11 @@ class RankingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar(),
-      body: buildBody(),
+    return ResponsiveWidget(
+      appbar: appbar(),
+      builder: (context, constrains) {
+        return buildBody();
+      },
     );
   }
 
@@ -25,7 +28,6 @@ class RankingScreen extends StatelessWidget {
         SizedBox(height: 20),
         gunlukHaftalikAylik(),
         SizedBox(height: 20),
-        
       ],
     );
   }
