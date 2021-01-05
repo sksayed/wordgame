@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ingilizceegitim/responsive/responsive_widget.dart';
-import 'package:ingilizceegitim/services/auth_services.dart';
-import 'package:ingilizceegitim/widgets/custom_appbar.dart';
-import 'package:ingilizceegitim/widgets/lesson_card.dart';
-import 'package:ingilizceegitim/widgets/settings_drawer.dart';
+import 'package:wordgame/screens/auth/signIn.dart';
+import 'package:wordgame/widgets/custom_appbar.dart';
+import 'package:wordgame/widgets/lesson_card.dart';
+import 'package:wordgame/widgets/settings_drawer.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,25 +10,46 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final AuthService _auth = AuthService();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  var colorListForLessonCards = <Color>[
+    Color(0xff1FBB8B),
+    Color(0xff165567),
+    Color(0xffC17F3E),
+    Color(0xffCFC060),
+    Color(0xff1FBB8B),
+    Color(0xff165567),
+    Color(0xff165567),
+    Color(0xffCFC060),
+    Color(0xff1FBB8B),
+    Color(0xffC17F3E),
+  ];
+  var titleListForLessonCards = <String>[
+    "Jobs",
+    "Development",
+    "Health",
+    "Coocking",
+    "Python/Dev",
+    "Flutter/Dev",
+    "History",
+    "Literature",
+    "Math",
+    "Enginnering",
+  ];
   @override
   Widget build(BuildContext context) {
     return buildResponsiveWidget(context);
   }
 
-  ResponsiveWidget buildResponsiveWidget(BuildContext context) {
-    return ResponsiveWidget(
-      scaffoldKey: _scaffoldKey,
+  Widget buildResponsiveWidget(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
-      drawer: buildSettingsDrawer(context),
-      appbar: CustomAppBarForHome(
-        title1: 'Ana Sayfa',
+      endDrawer: buildSettingsDrawer(context),
+      appBar: CustomAppBarForHome(
+        title1: 'Word Game',
         onPress: () => _scaffoldKey.currentState.openEndDrawer(),
       ),
-      builder: (context, constrains) {
-        return buildBody();
-      },
+      body: buildBody(),
     );
   }
 
@@ -49,11 +69,32 @@ class _HomeState extends State<Home> {
           children: [
             SizedBox(height: 10),
             searchField(),
-            lessons(),
-            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: lessonCardList(),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget lessonCardList() {
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: colorListForLessonCards.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.all(3),
+          child: LessonCard(
+            color: colorListForLessonCards[index],
+            title: titleListForLessonCards[index],
+          ),
+        );
+      },
     );
   }
 
@@ -75,7 +116,7 @@ class _HomeState extends State<Home> {
               flex: 1,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "Ders Ara",
+                  hintText: "Search Game",
                   border: InputBorder.none,
                 ),
               ),
@@ -93,87 +134,30 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Column lessons() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Dersler',
-                style: TextStyle(fontSize: 18),
-              ),
-              IconButton(
-                icon: Icon(Icons.more_horiz),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LessonCard(
-              color: Color(0xff1FBB8B),
-            ),
-            SizedBox(width: 20),
-            LessonCard(
-              color: Color(0xff165567),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LessonCard(
-              color: Color(0xffC17F3E),
-            ),
-            SizedBox(width: 20),
-            LessonCard(
-              color: Color(0xffCFC060),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LessonCard(
-              color: Color(0xff1FBB8B),
-            ),
-            SizedBox(width: 20),
-            LessonCard(
-              color: Color(0xff165567),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Future buildShowDialog(BuildContext context) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text("Çıkış Yap"),
-        content: new Text("Çıkış yapmak istediğine emin misin?"),
+        title: Text("Logut"),
+        content: new Text("Are you sure wanna to logut"),
         actions: <Widget>[
           RaisedButton(
             color: Color(0xffEE9090),
-            child: Text('Hayır'),
+            child: Text('No'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           RaisedButton(
             color: Color(0xffBA3E48),
-            child: Text('Evet'),
-            onPressed: () async {
-              await _auth.signOut();
-              Navigator.of(context).pop();
+            child: Text('Yes'),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignIn(),
+                ),
+              );
             },
           )
         ],

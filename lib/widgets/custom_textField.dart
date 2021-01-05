@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   final String label;
   final bool obscure;
@@ -23,9 +24,9 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscure,
       style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-        labelText: label,
+        hintText: label,
         fillColor: Color(0xffEE9090),
-        labelStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
+        hintStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
         filled: true,
         enabledBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.circular(10),

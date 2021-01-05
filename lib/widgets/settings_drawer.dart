@@ -25,7 +25,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
         ),
         children: [
           Text(
-            'Ayarlar',
+            'Settings',
             style: TextStyle(
               color: Colors.black,
               fontSize: 35,
@@ -57,7 +57,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
       child: Container(
         alignment: Alignment.centerRight,
         child: Text(
-          'Çıkış Yap',
+          'Logout',
           style: TextStyle(
               color: Color(0xffBA3E48),
               decoration: TextDecoration.underline,
@@ -75,7 +75,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Ses Efektleri',
+                'Music Effects',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -98,7 +98,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Cevaptan Sonra Sesi Çal',
+                'Play music after answer',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -121,7 +121,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Hemen Devam Et',
+                'Resume Song',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -141,7 +141,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             ],
           ),
           Text(
-            'Verilen Cevap Eğer Doğruysa Beklemeden Devam Et',
+            'If Answer Is Correct, Continue Without Waiting',
             style: TextStyle(color: Colors.black38, fontSize: 13),
           )
         ],
@@ -155,7 +155,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Bildirimler',
+            'Notifications',
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
           Switch(
@@ -194,7 +194,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Profil',
+                'Profile',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(
@@ -228,7 +228,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Kod Kullan',
+                'Use Code',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(
@@ -245,7 +245,7 @@ class SettingsDrawerState extends State<SettingsDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Geri Bildirim',
+                'Feedback',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(

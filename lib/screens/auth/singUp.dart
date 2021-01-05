@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ingilizceegitim/responsive/responsive_widget.dart';
-import 'package:ingilizceegitim/services/auth_services.dart';
-import 'package:ingilizceegitim/services/db_service.dart';
-import 'package:ingilizceegitim/widgets/auth_button.dart';
-import 'package:ingilizceegitim/widgets/custom_appbar.dart';
-import 'package:ingilizceegitim/widgets/custom_textField.dart';
-import 'package:ingilizceegitim/widgets/loading.dart';
+import 'package:wordgame/screens/auth/signIn.dart';
+import 'package:wordgame/screens/home/screen_controller.dart';
+import 'package:wordgame/widgets/auth_button.dart';
+import 'package:wordgame/widgets/custom_appbar.dart';
+import 'package:wordgame/widgets/custom_textField.dart';
 
 class SignUp extends StatefulWidget {
   final Function toggleView;
@@ -15,9 +13,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  final DbService _db = DbService();
 
   String name = "";
   String surname = "";
@@ -31,30 +27,28 @@ class _SignUpState extends State<SignUp> {
   double sliderVal = 15;
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : buildBodyWResponsiveWidget();
+    return buildBodyWResponsiveWidget();
   }
 
-  ResponsiveWidget buildBodyWResponsiveWidget() {
-    return ResponsiveWidget(
+  Widget buildBodyWResponsiveWidget() {
+    return Scaffold(
       backgroundColor: Colors.white,
-      appbar: CustomAppBar(
-        title1: 'Hoşgeldiniz',
-        title: 'Öğrenmeye Başlamak İçin Hesap Oluşturun',
+      appBar: CustomAppBar(
+        title1: 'Welcome',
+        title: 'Sign up to playing and learning with enjoying',
       ),
-      builder: (context, constrains) {
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(30.0),
-          child: Center(
-            child: Column(
-              children: [
-                fieldsAndButton(context),
-                SizedBox(height: 50),
-                signIn(),
-              ],
-            ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(30.0),
+        child: Center(
+          child: Column(
+            children: [
+              fieldsAndButton(context),
+              SizedBox(height: 50),
+              signIn(),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -68,9 +62,9 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: 12),
             CustomTextField(
               obscure: false,
-              label: 'Kullanıcı adın',
+              label: 'Username',
               validation: (val) => val.length < 2
-                  ? "Kullanıcı adınız en az 2 karakter içermelidir!"
+                  ? "Username must to provide min 2 chars"
                   : null,
               onChange: (val) {
                 setState(() {
@@ -79,16 +73,10 @@ class _SignUpState extends State<SignUp> {
               },
             ),
             SizedBox(height: 12),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: datePicker(context),
-            ),
-            SizedBox(height: 12),
             CustomTextField(
               obscure: false,
-              label: 'E-posta',
-              validation: (val) =>
-                  val.isEmpty ? "Lütfen E-postanızı girin!" : null,
+              label: 'Email',
+              validation: (val) => val.isEmpty ? "Please enter email" : null,
               onChange: (val) {
                 setState(() {
                   return email = val;
@@ -98,10 +86,9 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: 12),
             CustomTextField(
               obscure: true,
-              label: 'Şifre',
-              validation: (val) => val.length < 6
-                  ? "Şifreniz en az 6 karakter içermelidir!"
-                  : null,
+              label: 'Password',
+              validation: (val) =>
+                  val.length < 6 ? "Password must to provide min 6 char" : null,
               onChange: (val) {
                 setState(() {
                   return password = val;
@@ -112,70 +99,19 @@ class _SignUpState extends State<SignUp> {
             educationStatusSlider(),
             SizedBox(height: 12),
             AuthButton(
-              title: "Hesap Oluştur",
+              title: "Create Account",
               onPress: () async {
                 if (_formKey.currentState.validate()) {
-                  Map<String, String> userInfoMap = {
-                    "email": email,
-                    "password": password,
-                    "name": name,
-                    "surname": surname,
-                    "username": username,
-                  };
-                  setState(() => loading = true);
-                  dynamic result = await _auth.signUpWithEmailAndPassword(
-                    email,
-                    password,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenController(),
+                    ),
                   );
-                  _db.uploadUserInfo(userInfoMap);
-                  if (result == null) {
-                    setState(() {
-                      loading = false;
-                      error = "Kayıt olunamadı";
-                    });
-                  }
                 }
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  datePicker(BuildContext context) {
-    DateTime _dateTime;
-    return GestureDetector(
-      onTap: () {
-        showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(1970),
-          lastDate: DateTime(2020),
-        ).then(
-          (date) {
-            setState(() {
-              _dateTime = date;
-            });
-          },
-        );
-      },
-      child: Container(
-        height: 55,
-        width: 156,
-        decoration: BoxDecoration(
-          color: Color(0xffEE9090),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: Text(
-            _dateTime == null ? 'Doğum Tarihini Seç' : _dateTime.toString(),
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 15,
-            ),
-          ),
         ),
       ),
     );
@@ -188,7 +124,7 @@ class _SignUpState extends State<SignUp> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Eğitim Durumunuz Nedir?',
+              'What is Your Education Status',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -198,7 +134,7 @@ class _SignUpState extends State<SignUp> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Daireyi Sürükleyiniz!',
+              'Drag the Circle!',
               style: TextStyle(color: Colors.black45),
             ),
           ),
@@ -228,9 +164,9 @@ class _SignUpState extends State<SignUp> {
           flex: 2,
           child: CustomTextField(
             obscure: false,
-            label: 'Adın',
+            label: 'Name',
             validation: (val) =>
-                val.length < 2 ? "adınız en az 2 karakter içermelidir!" : null,
+                val.length < 2 ? "Name must to provide 2 char" : null,
             onChange: (val) {
               setState(() {
                 return name = val;
@@ -243,10 +179,9 @@ class _SignUpState extends State<SignUp> {
           flex: 2,
           child: CustomTextField(
             obscure: false,
-            label: 'Soyadın',
-            validation: (val) => val.length < 2
-                ? "Soyadınız en az 2 karakter içermelidir!"
-                : null,
+            label: 'Last Name',
+            validation: (val) =>
+                val.length < 2 ? "Last Name must to provide 2 char" : null,
             onChange: (val) {
               setState(() {
                 return surname = val;
@@ -263,10 +198,15 @@ class _SignUpState extends State<SignUp> {
       alignment: Alignment.centerRight,
       child: GestureDetector(
         onTap: () {
-          widget.toggleView();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignIn(),
+            ),
+          );
         },
         child: Text(
-          'Hesabım Var',
+          'I already have account - Sign In',
           style: TextStyle(
             decoration: TextDecoration.underline,
           ),

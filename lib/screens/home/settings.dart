@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ingilizceegitim/responsive/responsive_widget.dart';
-import 'package:ingilizceegitim/services/auth_services.dart';
-import 'package:ingilizceegitim/widgets/custom_appbar.dart';
+import 'package:wordgame/screens/auth/signIn.dart';
+import 'package:wordgame/widgets/custom_appbar.dart';
 
+// ignore: must_be_immutable
 class Setting extends StatefulWidget {
   bool isSwitched = false;
   bool isSwitched1 = true;
@@ -25,20 +25,17 @@ class _SettingState extends State<Setting> {
   bool isSwitched2 = true;
   bool isSwitched3 = true;
 
-  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return buildResponsiveWidget();
   }
 
-  ResponsiveWidget buildResponsiveWidget() {
-    return ResponsiveWidget(
-      appbar: CustomAppBarForSettings(
-        title1: "Ayarlar",
+  Widget buildResponsiveWidget() {
+    return Scaffold(
+      appBar: CustomAppBarForSettings(
+        title1: "Settings",
       ),
-      builder: (context, constrains) {
-        return buildBody();
-      },
+      body: buildBody(),
     );
   }
 
@@ -59,7 +56,7 @@ class _SettingState extends State<Setting> {
           buildDivider(),
           SizedBox(height: 15),
           moreSwitcherSettings(),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           signOutButton()
         ],
       ),
@@ -68,46 +65,17 @@ class _SettingState extends State<Setting> {
 
   Widget signOutButton() {
     return GestureDetector(
-      onTap: () {
-        buildShowDialog(context);
-      },
+      onTap: () => buildShowDialog(context),
       child: Container(
         alignment: Alignment.centerRight,
         child: Text(
-          'Çıkış Yap',
+          'Logout',
           style: TextStyle(
             color: Color(0xffBA3E48),
             decoration: TextDecoration.underline,
-            fontSize: 18,
+            fontSize: 20,
           ),
         ),
-      ),
-    );
-  }
-
-  Future buildShowDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text("Çıkış Yap"),
-        content: new Text("Çıkış yapmak istediğine emin misin?"),
-        actions: <Widget>[
-          RaisedButton(
-            color: Color(0xffEE9090),
-            child: Text('Hayır'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          RaisedButton(
-            color: Color(0xffBA3E48),
-            child: Text('Evet'),
-            onPressed: () async {
-              await _auth.signOut();
-              Navigator.of(context).pop();
-            },
-          )
-        ],
       ),
     );
   }
@@ -120,7 +88,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Ses Efektleri',
+                'Music Effects',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -143,7 +111,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Cevaptan Sonra Sesi Çal',
+                'Play music after answer',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -166,7 +134,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Hemen Devam Et',
+                'Resume Song',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Switch(
@@ -186,10 +154,10 @@ class _SettingState extends State<Setting> {
             ],
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.bottomLeft,
             child: Text(
-              'Verilen Cevap Eğer Doğruysa Beklemeden Devam Et',
-              style: TextStyle(color: Colors.black38, fontSize: 13),
+              'If Answer Is Correct, Continue Without Waiting',
+              style: TextStyle(color: Colors.black38, fontSize: 15),
             ),
           )
         ],
@@ -203,7 +171,7 @@ class _SettingState extends State<Setting> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Bildirimler',
+            'Notifications',
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
           Switch(
@@ -220,6 +188,37 @@ class _SettingState extends State<Setting> {
             activeTrackColor: Color(0xffBA3E48),
             activeColor: Colors.white,
           ),
+        ],
+      ),
+    );
+  }
+
+  Future buildShowDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Logut"),
+        content: new Text("Are you sure wanna to logut"),
+        actions: <Widget>[
+          RaisedButton(
+            color: Color(0xffEE9090),
+            child: Text('No'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          RaisedButton(
+            color: Color(0xffBA3E48),
+            child: Text('Yes'),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignIn(),
+                ),
+              );
+            },
+          )
         ],
       ),
     );
@@ -242,7 +241,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Profil',
+                'Profile',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(
@@ -276,7 +275,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Kod Kullan',
+                'Use Code',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(
@@ -293,7 +292,7 @@ class _SettingState extends State<Setting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Geri Bildirim',
+                'Feedback',
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               Icon(

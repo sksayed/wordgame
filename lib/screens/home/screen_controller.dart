@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ingilizceegitim/responsive/responsive_widget.dart';
-import 'package:ingilizceegitim/screens/home/home.dart';
-import 'package:ingilizceegitim/screens/home/ranking.dart';
-import 'package:ingilizceegitim/screens/home/settings.dart';
+import 'package:wordgame/screens/home/home.dart';
+import 'package:wordgame/screens/home/ranking.dart';
+import 'package:wordgame/screens/home/settings.dart';
 
 class ScreenController extends StatefulWidget {
   @override
@@ -14,11 +13,9 @@ class _ScreenControllerState extends State<ScreenController> {
   var pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
+    return Scaffold(
       bottomNavigationBar: buildBottomNavigationBar(),
-      builder: (context, constrains) {
-        return buildPageView();
-      },
+      body: buildPageView(),
     );
   }
 
@@ -58,15 +55,15 @@ class _ScreenControllerState extends State<ScreenController> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text('Ana Ekran'),
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.equalizer),
-          title: Text('Liderlik Tablosu'),
+          label: 'Leaderboard',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          title: Text('Ayarlar'),
+          label: 'Settings',
         ),
       ],
     );

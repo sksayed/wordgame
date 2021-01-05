@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ingilizceegitim/responsive/responsive_widget.dart';
-import 'package:ingilizceegitim/services/auth_services.dart';
-import 'package:ingilizceegitim/widgets/auth_button.dart';
-import 'package:ingilizceegitim/widgets/custom_appbar.dart';
-import 'package:ingilizceegitim/widgets/custom_textField.dart';
-import 'package:ingilizceegitim/widgets/loading.dart';
+import 'package:wordgame/screens/auth/singUp.dart';
+import 'package:wordgame/screens/home/screen_controller.dart';
+import 'package:wordgame/widgets/auth_button.dart';
+import 'package:wordgame/widgets/custom_appbar.dart';
+import 'package:wordgame/widgets/custom_textField.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  SignIn({this.toggleView});
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String email = "";
@@ -25,33 +21,29 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? Loading()
-        : buildBodyWResponsiveWidget();
+    return buildBodyWResponsiveWidget();
   }
 
-  ResponsiveWidget buildBodyWResponsiveWidget() {
-    return ResponsiveWidget(
-          backgroundColor: Colors.white,
-          appbar: CustomAppBar(
-            title1: 'Hoşgeldiniz',
-            title: 'Öğrenmeye Başlamak İçin Giriş Yapın',
+  Widget buildBodyWResponsiveWidget() {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(
+        title1: 'Welcome',
+        title: 'Sign in to playing and learning with enjoying',
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              fieldsAndButton(),
+              signUpAndForgotPassword(),
+            ],
           ),
-          builder: (context, constrains) {
-            return Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    fieldsAndButton(),
-                    signUpAndForgotPassword(),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+        ),
+      ),
+    );
   }
 
   Container signUpAndForgotPassword() {
@@ -61,17 +53,22 @@ class _SignInState extends State<SignIn> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Şifremi Unuttum',
+            'Forgot Password?',
             style: TextStyle(
               decoration: TextDecoration.underline,
             ),
           ),
           GestureDetector(
             onTap: () {
-              widget.toggleView();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignUp(),
+                ),
+              );
             },
             child: Text(
-              'Yeni Hesap Oluştur',
+              'Create New Account',
               style: TextStyle(
                 decoration: TextDecoration.underline,
               ),
@@ -90,9 +87,9 @@ class _SignInState extends State<SignIn> {
           children: [
             CustomTextField(
               obscure: false,
-              label: 'E-posta',
+              label: 'Email',
               validation: (val) =>
-                  val.isEmpty ? "Lütfen e-postanızı girin!" : null,
+                  val.isEmpty ? "Please fill email field" : null,
               onChange: (val) {
                 setState(() {
                   return email = val;
@@ -102,9 +99,9 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 12),
             CustomTextField(
               obscure: true,
-              label: 'Şifre',
+              label: 'Password',
               validation: (val) =>
-                  val.isEmpty ? "Lütfen şifrenizi girin!" : null,
+                  val.isEmpty ? "Please fill password field" : null,
               onChange: (val) {
                 setState(() {
                   return password = val;
@@ -113,20 +110,15 @@ class _SignInState extends State<SignIn> {
             ),
             SizedBox(height: 12),
             AuthButton(
-              title: "Giriş Yap",
+              title: "Sign In",
               onPress: () async {
                 if (_formKey.currentState.validate()) {
-                  setState(() => loading = true);
-                  dynamic result = await _auth.signInWithEmailAndPassword(
-                    email,
-                    password,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenController(),
+                    ),
                   );
-                  if (result == null) {
-                    setState(() {
-                      loading = false;
-                      error = "E-posta ve ya Şifre yanlış";
-                    });
-                  }
                 }
               },
             ),

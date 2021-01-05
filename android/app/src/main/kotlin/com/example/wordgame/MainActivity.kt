@@ -1,4 +1,4 @@
-package com.example.ingilizceegitim
+package com.example.wordgame
 
 import io.flutter.embedding.android.FlutterActivity
 

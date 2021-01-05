@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class LessonCard extends StatelessWidget {
   final Color color;
-  LessonCard({this.color});
+  final String title;
+  LessonCard({this.color,this.title,});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +28,7 @@ class LessonCard extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          SizedBox(height:13),
+          SizedBox(height: 13),
           Container(
             padding: EdgeInsets.symmetric(
               horizontal: 20,
@@ -45,7 +46,7 @@ class LessonCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             alignment: Alignment.topLeft,
             child: Text(
-              'Meslekler',
+              '$title',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -63,7 +64,7 @@ class LessonCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                'Sıradaki Sınav',
+                'Next game',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
               ),
             ),
