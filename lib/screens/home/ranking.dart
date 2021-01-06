@@ -24,7 +24,6 @@ class RankingScreen extends StatelessWidget {
 
   Widget containerZad() {
     return Container(
-      decoration: BoxDecoration(image: DecorationImage(image: AssetImage(imgList[index])),)
     );
   }
 
